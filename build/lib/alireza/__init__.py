@@ -1,3 +1,3 @@
-from django_tools import (
+from alireza.django_tools import (
     rename_file,
 )
