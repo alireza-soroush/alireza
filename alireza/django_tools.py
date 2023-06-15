@@ -1,7 +1,7 @@
 import uuid
 
 
-def rename_file(instance,filename,customformats:list=[],filenametype:str=uuid.uuid4(),hardpath:str=False) -> str :
+def rename_file(instance,filename,customformats:list=[],filenamemethod:str=uuid.uuid4(),hardpath:str=False) -> str :
     """
     This function is originally made for Django, but you can use it anywhere depending on your needs.
        
@@ -10,7 +10,7 @@ def rename_file(instance,filename,customformats:list=[],filenametype:str=uuid.uu
     If you want to use customformat or filenametype or other things in Django models.py , create a separate function in models.py and put the following codes in it.
 
     def created_function(instance,filename):
-        return rename_file(instance,filename,customformats=[give formats here],filenametype=give your method for naming files here,hardpath=give path here)
+        return rename_file(instance,filename,customformats=[give formats here],filenamemethod=give your method for naming files here,hardpath=give path here)
 
     In your model:
     image = models.ImageField(upload_to=created_function)
@@ -41,17 +41,17 @@ def rename_file(instance,filename,customformats:list=[],filenametype:str=uuid.uu
 
     if hardpath == False:
         try:
-            return '%s.%s' % (filenametype,ext)
+            return '%s.%s' % (filenamemethod,ext)
         except UnboundLocalError:
-            return '%s.%s' % (filenametype,sp[-1])
+            return '%s.%s' % (filenamemethod,sp[-1])
     
     else:
         while hardpath[-1] == '/':
             hardpath = hardpath[0:-1:1]
         try:
-            return '%s/%s.%s' % (hardpath,filenametype,ext)
+            return '%s/%s.%s' % (hardpath,filenamemethod,ext)
         except UnboundLocalError:
-            return '%s/%s.%s' % (hardpath,filenametype,sp[-1])
+            return '%s/%s.%s' % (hardpath,filenamemethod,sp[-1])
 
 
 
