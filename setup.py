@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-VERSION = '0.0.2'
+VERSION = '0.0.3'
 DESCRIPTION = 'Useful tools for python frameworks'
 LONG_DESCRIPTION = 'The purpose of starting this project is to make useful tools for all Python frameworks and make the life of programmers easier :)'
 
