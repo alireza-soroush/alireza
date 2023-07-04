@@ -1,1 +1,3 @@
-from alireza._django_tools import *
+from alireza import (
+    UsefulTools,DjangoTools,
+)
