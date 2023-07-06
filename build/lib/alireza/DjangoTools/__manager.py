@@ -2,6 +2,7 @@ __all__= ['rename_file',]
 
 
 from uuid import uuid4
+from typing import Iterable
 from alireza.DjangoTools.__Error_Handler import _ErrorHandling
 
 

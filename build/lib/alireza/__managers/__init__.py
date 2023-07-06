@@ -1,1 +1,0 @@
-from ._django_manager import *
