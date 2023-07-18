@@ -1,7 +1,7 @@
 Metadata-Version: 2.1
 Name: alireza
-Version: 0.0.4
-Summary: Comprehensive Toolkit for Boosting Productivity in Python Framework Development
+Version: 0.0.5
+Summary: Comprehensive Toolkit for Boosting Productivity in Python Frameworks Development
 Home-page: UNKNOWN
 Author: Alireza Soroush
 Author-email: alirezasoroush@hotmail.com
@@ -14,6 +14,7 @@ Classifier: Programming Language :: Python :: 3
 Classifier: Operating System :: Unix
 Classifier: Operating System :: MacOS :: MacOS X
 Classifier: Operating System :: Microsoft :: Windows
+Requires-Python: >=3.6
 Description-Content-Type: text/markdown
 
 This extensive toolkit is specifically designed to enhance productivity and streamline the development process 
@@ -26,4 +27,5 @@ and much more. Whether you are working on web development, data science, or any 
 valuable companion throughout the entire development lifecycle.
 Accelerate your Python framework projects, reduce development time, and increase code quality with this indispensable toolkit that caters 
 to the diverse needs of developers, allowing them to focus on delivering exceptional results.
+
 

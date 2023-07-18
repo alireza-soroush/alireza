@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-VERSION = '0.0.4'
+VERSION = '0.0.5'
 DESCRIPTION = 'Comprehensive Toolkit for Boosting Productivity in Python Frameworks Development'
 LONG_DESCRIPTION = """This extensive toolkit is specifically designed to enhance productivity and streamline the development process 
 when working with Python frameworks. With a wide range of powerful and time-saving tools at your disposal, it empowers developers to tackle 

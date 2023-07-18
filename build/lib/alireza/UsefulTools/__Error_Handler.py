@@ -1,13 +1,18 @@
 import warnings
 import math
 
-class _ErrorHandling():
+class _ErrorHandling:
+
+    @staticmethod
+    def __type_finder(var):
+        type_var = type(var)
+        return "".join(str(type_var).split("'")[1:-1])
     
     @staticmethod
     def _random_string_error_handler(length,url_safe,regex,only_letters,only_digits,only_lowercase,only_uppercase):
         #length
-        if (length_type:=type(length)) is not int:
-            error = "Value must be int not {}".format("".join(str(length_type).split("'")[1:-1]))
+        if type(length) is not int:
+            error = "Value must be int not {}".format(_ErrorHandling.__type_finder(length))
             raise ValueError(error)
         elif length<1:
             error = f"Length must be greater than 0. The Given length {length} is {int(math.fabs(length))+1} short."
@@ -24,11 +29,11 @@ class _ErrorHandling():
         #end regex
 
         #only letters or digits
-        elif (letter_type:=type(only_letters)) is not bool:
-            error = "Value for only_letters must be boolean not {}".format("".join(str(letter_type).split("'")[1:-1]))
+        elif type(only_letters) is not bool:
+            error = "Value for only_letters must be boolean not {}".format(_ErrorHandling.__type_finder(only_letters))
             raise ValueError(error)
-        elif (digits_type:=type(only_digits)) is not bool:
-            error = "Value for only_digits must be boolean not {}".format("".join(str(digits_type).split("'")[1:-1]))
+        elif type(only_digits) is not bool:
+            error = "Value for only_digits must be boolean not {}".format(_ErrorHandling.__type_finder(only_digits))
             raise ValueError(error)
         
         #Disallowing from using regex and only_letters and only_digits at the same time.
@@ -41,8 +46,8 @@ class _ErrorHandling():
         ##############
 
         #url_safe
-        elif url_safe_type:=type(url_safe) is not bool:
-            error = "Value for url_safe must be boolean not {}".format("".join(str(url_safe_type).split("'")[1:-1]))
+        elif type(url_safe) is not bool:
+            error = "Value for url_safe must be boolean not {}".format(_ErrorHandling.__type_finder(url_safe))
             raise ValueError(error)
         elif (bool(regex) is False) and (url_safe is True):
             warning = "You should Use url_safe with regex since it's useless by itself."
@@ -50,11 +55,11 @@ class _ErrorHandling():
 
 
         #upper and lower
-        if (type_lowercase:=type(only_lowercase)) is not bool:
-            error = "Value for only_lowercase must be boolean not {}".format("".join(str(type_lowercase).split("'")[1:-1]))
+        if type(only_lowercase) is not bool:
+            error = "Value for only_lowercase must be boolean not {}".format(_ErrorHandling.__type_finder(only_lowercase))
             raise ValueError(error)
-        elif (type_uppercase:=type(only_uppercase)) is not bool:
-            error = "Value for only_uppercase must be boolean not {}".format("".join(str(type_uppercase).split("'")[1:-1]))
+        elif type(only_uppercase)is not bool:
+            error = "Value for only_uppercase must be boolean not {}".format(_ErrorHandling.__type_finder(only_uppercase))
             raise ValueError(error)
         if only_digits is True and (only_lowercase or only_uppercase):
             warning = "Using only_lowercase or only_uppercase with only_digits it's useless and won't do anything."
@@ -78,17 +83,17 @@ class _ErrorHandling():
         
         #no_dot_filename
         if no_dot_filename is not None:
-            if (ndf_type:=type(no_dot_filename)) is not bool:
+            if type(no_dot_filename) is not bool:
                 error = """Invalid argument type. Expected a boolean value, but received {}.
-                Please provide a boolean value (True or False) as the argument.""".format(str(ndf_type).split("'")[-2])
+                Please provide a boolean value (True or False) as the argument.""".format(_ErrorHandling.__type_finder(no_dot_filename))
                 raise TypeError(error)
 
 
         #rename_files
         if rename_files is not None:
-            if (rf_type:= type(rename_files)) is not str:
+            if type(rename_files) is not str:
                 error = """Invalid argument type. Expected a string, but received {}. 
-                Please provide a value of type string as the argument.""".format(str(rf_type).split("'")[-2])
+                Please provide a value of type string as the argument.""".format(_ErrorHandling.__type_finder(rename_files))
                 raise TypeError(error)
 
 
@@ -115,3 +120,25 @@ class _ErrorHandling():
             elif type(param) is dict:
                 error = "Only lists, tuples, and sets are supported. Dictionaries cannot be used as an array."
                 raise ValueError(error)
+            
+
+
+    @staticmethod
+    def _string_validator_error_handler(input_string,filter_characters,is_allowed):
+        if type(input_string) is not str:
+            error = "input_string Value must be a String not {}.".format(_ErrorHandling.__type_finder(input_string))
+            raise TypeError(error)
+        elif type(filter_characters) is not str:
+            error = "filter_characters Value must be a String not {}.".format(_ErrorHandling.__type_finder(filter_characters))
+            raise TypeError(error)
+        elif type(is_allowed) is not bool:
+            error = "is_allowed Value must be a bool not {}.".format(_ErrorHandling.__type_finder(is_allowed))
+            raise TypeError(error)
+        
+        elif len(input_string) < 1:
+            error = "input_string must have at least 1 character."
+            raise ValueError(error)
+        elif len(filter_characters) < 1:
+            error = "filter_characters must have at least 1 character."
+            raise ValueError(error)
+    

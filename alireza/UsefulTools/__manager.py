@@ -1,4 +1,4 @@
-__all__ = ['random_string','format_finder']
+__all__ = ['random_string','format_finder','string_validator']
 
 
 
@@ -10,13 +10,13 @@ from urllib.parse import quote
 from alireza.DjangoTools import rename_file
 from typing import Iterable
 from alireza.UsefulTools.__Error_Handler import _ErrorHandling
-
+import re
 
 
 
 
 def random_string(length:int=15,url_safe:bool=False,regex:str=False,only_letters:bool=False,only_digits:bool=False,
-                  only_lowercase:bool=False,only_uppercase:bool=False,*args,**kwargs):
+                  only_lowercase:bool=False,only_uppercase:bool=False,*args,**kwargs) -> str:
     """
     Generate a random String .
     You can only choose one between regex and only_letters and only_digits .
@@ -62,7 +62,7 @@ def random_string(length:int=15,url_safe:bool=False,regex:str=False,only_letters
 
 
 def format_finder(filenames:Iterable[str],customformats:Iterable[str]|None=None,find_formats:Iterable[str]|None=None,
-                  no_dot_filename:bool |None=False,rename_files:str|None=None,*args,**kwargs):
+                  no_dot_filename:bool |None=False,rename_files:str|None=None,*args,**kwargs) -> str:
     """
     Extract the format from given filenames and return it as a tuple of (filename, ext). 
     Specify a custom format using customformat=['custom.format'], and if that format exists in the filenames, it will be extracted.
@@ -124,3 +124,43 @@ def format_finder(filenames:Iterable[str],customformats:Iterable[str]|None=None,
 
     return result
 
+
+
+
+def string_validator(input_string:str,filter_characters:str,is_allowed:bool=True) -> bool:
+    """
+        *Validates a string based on the filter_characters and is_allowed.*
+        
+        Args:
+        Input_string: The string to be validated.
+        Filter_characters: The set of characters that used to validate the string.
+        is_allowed: Determines the validation behavior.
+            >>> if is_allowed is True -> only allows strings that contain the filter_characters.
+            >>> if is_allowed is False -> only allows strings that does not contain the filter_characters.
+    """
+    _ErrorHandling._string_validator_error_handler(input_string,filter_characters,is_allowed)
+
+    input_string = repr(input_string)[1:-1]
+    filter_characters = repr(filter_characters)[1:-1]
+
+
+    #is allowed
+    if is_allowed:
+        # Define a regular expression pattern for allowed characters
+        pattern = f'^[{re.escape(filter_characters)}]+$'
+        # Check if the input_string matches the pattern
+        if re.match(pattern, input_string):
+            return True
+        else:
+            return False
+    
+
+    #is disallowed
+    elif not is_allowed:
+        # Define a regular expression pattern for disallowed characters
+        pattern = f'[{re.escape(filter_characters)}]'
+        # Check if the input_string matches the pattern
+        if re.search(pattern, input_string):
+            return False
+        else:
+            return True
